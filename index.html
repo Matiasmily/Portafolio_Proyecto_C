@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compilador LRC — Lenguaje de Reglas de Crédito</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="index.css">
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+
+<header>
+  <div class="header-inner">
+    <div class="logo">
+      <span class="logo-bracket">[</span>
+      <span class="logo-text">LRC</span>
+      <span class="logo-bracket">]</span>
+      <span class="logo-sub">Compilador</span>
+    </div>
+    <nav>
+      <a href="#intro">Inicio</a>
+      <a href="#lenguaje">Lenguaje</a>
+      <a href="#lexico">Léxico</a>
+      <a href="#sintactico">Sintáctico</a>
+      <a href="#semantico">Semántico</a>
+      <a href="#tabla">Símbolos</a>
+      <a href="#resultado">Resultado</a>
+      <a href="#repo">Repo</a>
+    </nav>
+  </div>
+</header>
+
+<section id="intro" class="hero">
+  <div class="hero-tag">v1.0 — 2025</div>
+  <h1>
+    Lenguaje de<br>
+    <span class="accent">Reglas</span> de<br>
+    Crédito
+  </h1>
+  <p class="hero-desc">
+    Un compilador especializado para analizar, validar y estructurar reglas de evaluación crediticia mediante un lenguaje formal e interpretable.
+  </p>
+  <div class="hero-badges">
+    <span class="badge">Análisis Léxico</span>
+    <span class="badge">Análisis Sintáctico</span>
+    <span class="badge">Análisis Semántico</span>
+    <span class="badge">Tabla de Símbolos</span>
+  </div>
+
+  <div class="compilador-box">
+    <div class="compilador-header">
+      <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
+      <span class="compilador-title">Terminal — LRC</span>
+    </div>
+    <textarea id="codigo" placeholder="SI ingreso >= 5000 Y edad >= 18 ENTONCES APROBAR ;" spellcheck="false"></textarea>
+    <div class="compilador-actions">
+      <button onclick="analizar()" class="btn-compilar">▶ Compilar</button>
+      <button onclick="limpiar()" class="btn-limpiar">⟳ Limpiar</button>
+    </div>
+    <div class="output-label">// salida</div>
+    <pre id="resultado" class="compilador-output">// Escribe una regla y presiona Compilar...</pre>
+  </div>
+</section>
+
+<main>
+
+<section id="lenguaje" class="card reveal anim-up">
+  <div class="section-num">01</div>
+  <h2>Descripción del Lenguaje</h2>
+  <p>El lenguaje LRC permite definir reglas de evaluación financiera basadas en condiciones lógicas y decisiones estructuradas. Su sintaxis es legible e inequívoca.</p>
+
+  <div class="syntax-example reveal anim-scale">
+    <div class="syntax-line">
+      <span class="kw">SI</span>
+      <span class="id">ingreso</span>
+      <span class="op">&gt;=</span>
+      <span class="num">5000</span>
+      <span class="kw">Y</span>
+      <span class="id">edad</span>
+      <span class="op">&gt;=</span>
+      <span class="num">18</span>
+      <span class="kw">ENTONCES</span>
+      <span class="act">APROBAR</span>
+      <span class="sym">;</span>
+    </div>
+  </div>
+
+  <div class="keyword-grid">
+    <div class="kw-item reveal anim-up" style="--d:0.00s"><code>SI</code><span>Inicia condición</span></div>
+    <div class="kw-item reveal anim-up" style="--d:0.06s"><code>ENTONCES</code><span>Bifurcación</span></div>
+    <div class="kw-item reveal anim-up" style="--d:0.12s"><code>Y</code><span>Conjunción lógica</span></div>
+    <div class="kw-item reveal anim-up" style="--d:0.18s"><code>O</code><span>Disyunción lógica</span></div>
+    <div class="kw-item reveal anim-up" style="--d:0.24s"><code>NO</code><span>Negación</span></div>
+    <div class="kw-item reveal anim-up" style="--d:0.30s"><code>APROBAR</code><span>Acción positiva</span></div>
+    <div class="kw-item reveal anim-up" style="--d:0.36s"><code>RECHAZAR</code><span>Acción negativa</span></div>
+    <div class="kw-item reveal anim-up" style="--d:0.42s"><code>CONDICIONAR</code><span>Acción condicional</span></div>
+  </div>
+</section>
+
+<section id="lexico" class="card reveal anim-up">
+  <div class="section-num">02</div>
+  <h2>Fase 1 — Analizador Léxico</h2>
+  <p>Descompone el código fuente en unidades mínimas de significado: los <strong>tokens</strong>. Cada lexema es clasificado según su naturaleza.</p>
+
+  <div class="phase-flow reveal anim-left">
+    <div class="flow-item">Código fuente</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item highlight">Lexer</div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-item">Stream de tokens</div>
+  </div>
+
+  <table class="styled-table reveal anim-up">
+    <thead>
+      <tr><th>Lexema</th><th>Token</th><th>Descripción</th></tr>
+    </thead>
+    <tbody>
+      <tr><td class="code-cell kw-cell">SI</td><td><span class="token-badge kw-badge">PALABRA_RESERVADA</span></td><td>Inicio de regla condicional</td></tr>
+      <tr><td class="code-cell id-cell">ingreso</td><td><span class="token-badge id-badge">IDENTIFICADOR</span></td><td>Variable del dominio</td></tr>
+      <tr><td class="code-cell op-cell">&gt;=</td><td><span class="token-badge op-badge">OPERADOR</span></td><td>Comparación relacional</td></tr>
+      <tr><td class="code-cell num-cell">5000</td><td><span class="token-badge num-badge">NÚMERO</span></td><td>Literal numérico entero</td></tr>
+      <tr><td class="code-cell kw-cell">ENTONCES</td><td><span class="token-badge kw-badge">PALABRA_RESERVADA</span></td><td>Bifurcación de acción</td></tr>
+      <tr><td class="code-cell act-cell">APROBAR</td><td><span class="token-badge act-badge">ACCIÓN</span></td><td>Decisión de aprobación</td></tr>
+      <tr><td class="code-cell sym-cell">;</td><td><span class="token-badge sym-badge">SÍMBOLO</span></td><td>Fin de regla</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="sintactico" class="card reveal anim-up">
+  <div class="section-num">03</div>
+  <h2>Fase 2 — Analizador Sintáctico</h2>
+  <p>Verifica que la secuencia de tokens cumpla con la gramática formal del lenguaje LRC.</p>
+
+  <div class="grammar-box reveal anim-left">
+    <div class="grammar-title">Gramática BNF</div>
+    <pre class="grammar-pre"><span class="g-rule">&lt;Regla&gt;</span>     ::= <span class="g-kw">SI</span> <span class="g-rule">&lt;Condicion&gt;</span> <span class="g-kw">ENTONCES</span> <span class="g-rule">&lt;Accion&gt;</span> <span class="g-sym">;</span>
+<span class="g-rule">&lt;Condicion&gt;</span> ::= <span class="g-rule">&lt;Expr&gt;</span> | <span class="g-rule">&lt;Expr&gt;</span> <span class="g-kw">Y</span> <span class="g-rule">&lt;Condicion&gt;</span> | <span class="g-rule">&lt;Expr&gt;</span> <span class="g-kw">O</span> <span class="g-rule">&lt;Condicion&gt;</span>
+<span class="g-rule">&lt;Expr&gt;</span>      ::= <span class="g-id">IDENTIFICADOR</span> <span class="g-op">OPERADOR</span> <span class="g-num">NÚMERO</span>
+<span class="g-rule">&lt;Accion&gt;</span>    ::= <span class="g-kw">APROBAR</span> | <span class="g-kw">RECHAZAR</span> | <span class="g-kw">CONDICIONAR</span></pre>
+  </div>
+
+  <div class="tree-box reveal anim-right">
+    <div class="tree-title">Árbol de Análisis Sintáctico</div>
+    <pre class="tree-pre">Regla
+├── <span class="kw">SI</span>
+├── Condición
+│   ├── <span class="id">ingreso</span> <span class="op">&gt;=</span> <span class="num">5000</span>
+│   ├── <span class="kw">Y</span>
+│   └── <span class="id">edad</span> <span class="op">&gt;=</span> <span class="num">18</span>
+├── <span class="kw">ENTONCES</span>
+└── <span class="act">APROBAR</span></pre>
+  </div>
+</section>
+
+<section id="semantico" class="card reveal anim-up">
+  <div class="section-num">04</div>
+  <h2>Fase 3 — Analizador Semántico</h2>
+  <p>Valida que las expresiones tengan coherencia lógica: tipos compatibles, identificadores declarados y valores dentro de rangos permitidos.</p>
+
+  <div class="semantic-grid">
+    <div class="sem-card valid reveal anim-left">
+      <div class="sem-header">
+        <span class="sem-icon">✔</span> Válido
+      </div>
+      <pre class="sem-code"><span class="kw">SI</span> <span class="id">ingreso</span> <span class="op">&gt;=</span> <span class="num">5000</span>
+<span class="kw">ENTONCES</span> <span class="act">APROBAR</span> <span class="sym">;</span></pre>
+      <p class="sem-msg">Tipo numérico comparado con literal numérico. ✔</p>
+    </div>
+    <div class="sem-card error reveal anim-right">
+      <div class="sem-header">
+        <span class="sem-icon">✘</span> Error Semántico
+      </div>
+      <pre class="sem-code"><span class="kw">SI</span> <span class="id">ingreso</span> <span class="op">&gt;=</span> <span class="err">"alto"</span>
+<span class="kw">ENTONCES</span> <span class="act">APROBAR</span> <span class="sym">;</span></pre>
+      <p class="sem-msg">Error: comparación numérica con cadena de texto. ✘</p>
+    </div>
+  </div>
+</section>
+
+<section id="tabla" class="card reveal anim-up">
+  <div class="section-num">05</div>
+  <h2>Fase 4 — Tabla de Símbolos</h2>
+  <p>Repositorio interno que registra todos los identificadores detectados, junto con su tipo inferido y valor asociado.</p>
+
+  <table class="styled-table reveal anim-up">
+    <thead>
+      <tr><th>#</th><th>Identificador</th><th>Tipo</th><th>Valor</th><th>Uso</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="idx-cell">001</td>
+        <td class="code-cell id-cell">ingreso</td>
+        <td><span class="token-badge num-badge">número</span></td>
+        <td class="code-cell">5000</td>
+        <td>Condición</td>
+      </tr>
+      <tr>
+        <td class="idx-cell">002</td>
+        <td class="code-cell id-cell">edad</td>
+        <td><span class="token-badge num-badge">número</span></td>
+        <td class="code-cell">18</td>
+        <td>Condición</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="resultado" class="card reveal anim-up">
+  <div class="section-num">06</div>
+  <h2>Fase 5 — Resultado Final</h2>
+  <p>El compilador integra los resultados de todas las fases y emite un veredicto estructurado sobre la validez de la regla.</p>
+
+  <div class="result-flow">
+    <div class="rf-item reveal anim-up" style="--d:0.00s">
+      <div class="rf-icon">L</div>
+      <div class="rf-label">Léxico</div>
+      <div class="rf-status ok">OK</div>
+    </div>
+    <div class="rf-line"></div>
+    <div class="rf-item reveal anim-up" style="--d:0.12s">
+      <div class="rf-icon">S</div>
+      <div class="rf-label">Sintáctico</div>
+      <div class="rf-status ok">OK</div>
+    </div>
+    <div class="rf-line"></div>
+    <div class="rf-item reveal anim-up" style="--d:0.24s">
+      <div class="rf-icon">Sm</div>
+      <div class="rf-label">Semántico</div>
+      <div class="rf-status ok">OK</div>
+    </div>
+    <div class="rf-line"></div>
+    <div class="rf-item reveal anim-up" style="--d:0.36s">
+      <div class="rf-icon">✔</div>
+      <div class="rf-label">Aprobado</div>
+      <div class="rf-status ok">VÁLIDO</div>
+    </div>
+  </div>
+</section>
+
+<section id="repo" class="card repo-card reveal anim-scale">
+  <div class="section-num">07</div>
+  <h2>Repositorio</h2>
+  <p>El código fuente del compilador LRC está disponible públicamente.</p>
+  <a href="#" class="repo-btn">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+    Ver en GitHub
+  </a>
+</section>
+
+</main>
+
+<footer>
+  <span>Compilador LRC &copy; 2025</span>
+  <span>Lenguaje de Reglas de Crédito</span>
+</footer>
+
+<script src="index.js"></script>
+</body>
+</html>
