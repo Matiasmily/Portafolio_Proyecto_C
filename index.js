@@ -108,3 +108,28 @@ function limpiar() {
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 })();
+
+// Smooth Scroll Mejorado 
+document.addEventListener('DOMContentLoaded', () => {
+
+  document.querySelectorAll('nav a').forEach(link => {
+    link.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href').substring(1);
+      const targetSection = document.getElementById(targetId);
+      
+      if (targetSection) {
+        e.preventDefault();
+        
+        const headerOffset = 90;
+        const elementPosition = targetSection.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.scrollY - headerOffset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+});

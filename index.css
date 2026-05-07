@@ -679,3 +679,113 @@ footer {
 
 /* hero always visible immediately */
 .hero { animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) both; }
+
+/* ====================== MOCKUP DEL SIMULADOR ====================== */
+.simulador-mockup {
+  background: #0f1320;
+  border: 1px solid #1e2538;
+  border-radius: 12px;
+  overflow: hidden;
+  margin: 30px 0;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+}
+
+.mockup-header {
+  background: #1a2238;
+  padding: 14px 20px;
+  font-weight: 600;
+  color: #67e8f9;
+  border-bottom: 1px solid #1e2538;
+}
+
+.mockup-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.mockup-form {
+  padding: 24px;
+  border-right: 1px solid #1e2538;
+}
+
+.mockup-title {
+  color: #67e8f9;
+  font-size: 0.9rem;
+  margin: 18px 0 8px;
+  font-weight: 600;
+}
+
+.mockup-field {
+  margin-bottom: 16px;
+}
+
+.mockup-field label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.85rem;
+  color: #a5b4fc;
+}
+
+.mockup-field input {
+  width: 100%;
+  padding: 10px 14px;
+  background: #1a2238;
+  border: 1px solid #334155;
+  border-radius: 6px;
+  color: white;
+}
+
+.tag {
+  font-size: 0.7rem;
+  background: #334155;
+  padding: 1px 6px;
+  border-radius: 3px;
+  margin-left: 6px;
+}
+
+.mockup-btn {
+  width: 100%;
+  padding: 12px;
+  background: #22d3ee;
+  color: #0f172a;
+  border: none;
+  border-radius: 6px;
+  font-weight: 700;
+  margin-top: 8px;
+  cursor: pointer;
+}
+
+.mockup-result {
+  padding: 24px;
+  background: #1a2238;
+}
+
+.aprobar {
+  background: linear-gradient(135deg, #14532d, #1a2238);
+  border-left: 5px solid #4ade80;
+}
+
+.result-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.check {
+  font-size: 2rem;
+}
+
+.result-text {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #4ade80;
+}
+
+.mockup-caption {
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-top: 10px;
+}
